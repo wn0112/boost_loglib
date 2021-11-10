@@ -22,13 +22,11 @@ public:
     Log(const std::string& file, int level, int fileCount, long long fileSize);
     ~Log();
 
-    //在使用之前必须先调用此函数
     void init();
-    // 写日志
     void write(const char* msg, trvl::severity_level);
-    //添加异步槽
+    // add async sink
     void addAsyncSink();
-    //添加同步槽
+    // add sync sink
     void addSyncSink();
     void setLogFile(const std::string&);
     void setRotateFileCount(int);
@@ -37,7 +35,7 @@ public:
     void setTimeFormat(const std::string&);
     void setAsync(bool);
     void setPrintToConsole(bool);
-    void flush(); // 清空队列, 将缓存写入文件
+    void flush(); // write all message to file, for async mode
 
 private:
     bool _enableAsync;
