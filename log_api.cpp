@@ -1,4 +1,3 @@
-#include "log_api.h"
 #include <iostream>
 #include <boost/filesystem.hpp>
 #include <boost/log/sources/global_logger_storage.hpp>
@@ -15,6 +14,7 @@
 #include <boost/log/detail/thread_id.hpp>
 #include <boost/log/sinks.hpp>
 #include <boost/algorithm/string.hpp>
+#include "log_api.h"
 
 static const int QUEUE_SIZE = 1000000; // fixed cache size
 using boost::shared_ptr;
