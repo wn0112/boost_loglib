@@ -1,7 +1,7 @@
 #include "wlog.h"
 #include "log_api.h"
 
-WLogger::WLogger(): __level(2)
+WLogger::WLogger(): __level(trvl::severity_level::info)
 {
     __logger = new Log();
 }
