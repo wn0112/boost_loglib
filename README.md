@@ -2,16 +2,16 @@
 A pythonic log library based on boost::log.
 
 # Intruduction
-- sync/async
+- Sync/Async
 ```c++
 logger.setAsync(true); // default: false
 ```
-- file rotate
+- File rotate
 ```
 logger.setRotateFileCount(10);
 logger.setRotateFileSize(100); // MB
 ```
-- message format
+- Message format
 ```C++
 logger.debug("Hello %s, you are the %dth vistor.", "Andy", 100);
 ```
