@@ -1,5 +1,5 @@
 # boost_loglib
-A pythonic log library based on boost::log.
+A pythonic log library based on boost::log, simply and fast.
 
 # Intruduction
 - Sync/Async
@@ -47,7 +47,7 @@ int main()
    
    logger.debug("start to run ...");
    logger.debug("Hello %s, you are the %dth vistor.", "Andy", 100);
-   logger.flush();  // write cached message to file
+   logger.flush();  // write all cached message to file
 }
 ```
 # Requirements:
