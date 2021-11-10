@@ -47,7 +47,7 @@ int main()
    
    logger.debug("start to run ...");
    logger.debug("Hello %s, you are the %dth vistor.", "Andy", 100);
-   logger.flush();  // write all cached message to file
+   logger.flush();  // Force to write cached message to file
 }
 ```
 # Requirements:
