@@ -1,7 +1,7 @@
 #pragma once
 /********************************* 
    * message cache size : 1000000
-   * max message length: 1024
+   * max message string length : 1024
 **********************************/
 
 #ifndef WLOG_H
