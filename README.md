@@ -35,6 +35,21 @@ int main()
    logger.debug("Hello %s, you are the %dth vistor.", "Andy", 100);
 }
 ```
+```c++
+#include <iostream>
+#include "wlog.h"
+
+int main()
+{
+   WLogger logger("log.log", LOG_LVL::trace, 10, 100); // level: trace; file count: 10; file size: 100MB
+   logger.setAsync(true); // enable async log
+   logger.init();
+   
+   logger.debug("start to run ...");
+   logger.debug("Hello %s, you are the %dth vistor.", "Andy", 100);
+   logger.flush();  // write cached message to file
+}
+```
 # Requirements:
 * _boost_1_75_0_ or higher
 # OS
