@@ -1,20 +1,21 @@
 #pragma once
 /********************************* 
-   * 异步日志缓冲队列大小 : 1000000
-   * 日志每行字符串最大长度: 1024
+   * message cache size : 1000000
+   * max message length: 1024
 **********************************/
 
 #ifndef WLOG_H
 #define WLOG_H
 
-#ifdef LOG_API
+#ifdef _MSC_VER
+#define DLL_EXPORT __declspec( dllexport )
 #else
-#define LOG_API _declspec(dllimport)
+#define DLL_EXPORT
 #endif
 #include <ostream>
 class Log;
 
-//日志等级 
+// log level 
 enum LOG_LVL {
     trace,
     debug,
@@ -24,14 +25,14 @@ enum LOG_LVL {
     fatal
 };
 
-class LOG_API WLogger
+class DLL_EXPORT WLogger
 {
 public:
     WLogger();
     WLogger(const std::string& file, int level, int fileCount, long long fileSize);
     ~WLogger();
 
-    // 格式化后的字符串最大长度: 1024
+    // max message length: 1024
     void trace(const char* fmt, ...);
     void info(const char* fmt, ...);
     void debug(const char* fmt, ...);
@@ -39,31 +40,31 @@ public:
     void error(const char* fmt, ...);
     void fatal(const char* fmt, ...);
 
-    //初始化 logger; 先执行设置函数 setXXX(), 再 init(), 设置才会有效
+    //initial logger, works after setXXX() serial functions
     void init();
 
-    //设定日志文件; 默认 log.log
+    // default: log.log
     void setLogFile(const std::string&);
     
-    //设置滚动日志的最大个数; 默认 5
+    // default: 5
     void setRotateFileCount(int);
     
-    //设置单个日志文件大小, 单位 MB; 默认 10MB
+    // rotate file size, default: 10MB
     void setRotateFileSize(long long);
     
-    //设置日志等级, 大于等于此等级的才记录; 默认 info 级别
+    // log level, default: info
     void setLogLevel(int);
 
-    //设置日志时间格式, 默认: "%Y-%m-%d %H:%M:%S"
+    // time format, default: "%Y-%m-%d %H:%M:%S"
     void setTimeFormat(const std::string&);
 
-    //是否启用异步日志; 默认 否
+    // enable async log, default: false
     void setAsync(bool);
 
-    //是否输出到终端; 默认 是
+    // send to console, default: true
     void setPrintToConsole(bool);
 
-    // 立即刷新缓冲, 写入日志文件; 针对异步日志起作用
+    // write message to file
     void flush(); 
 
 private:
