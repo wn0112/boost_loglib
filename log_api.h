@@ -35,7 +35,7 @@ public:
     void setTimeFormat(const std::string&);
     void setAsync(bool);
     void setPrintToConsole(bool);
-    void flush(); // write all message to file, for async mode
+    void flush(); // force to write message to file, for async mode
 
 private:
     bool _enableAsync;
