@@ -16,21 +16,21 @@
 #include <boost/log/sinks.hpp>
 #include <boost/algorithm/string.hpp>
 
-static const int QUEUE_SIZE = 1000000; // 指定队列大小可以避免内存无限膨涨
+static const int QUEUE_SIZE = 1000000; // fixed cache size
 using boost::shared_ptr;
 
 BOOST_LOG_ATTRIBUTE_KEYWORD(thread_id, "ThreadID", attrs::current_thread_id::value_type);
 BOOST_LOG_ATTRIBUTE_KEYWORD(severity, "Severity", trvl::severity_level);
 BOOST_LOG_ATTRIBUTE_KEYWORD(tag_attr, "Tag", std::string);
 
-// 写日志文件用
+// file sink
 typedef sinks::text_file_backend backend_t;
 typedef sinks::asynchronous_sink<backend_t, sinks::bounded_ordering_queue<
     logging::attribute_value_ordering< unsigned int, std::less< unsigned int >>, 
     QUEUE_SIZE, sinks::block_on_overflow>> async_sink_t;
 typedef sinks::synchronous_sink<backend_t> sync_sink_t;
 
-// 写终端用
+// console sink
 typedef sinks::text_ostream_backend backend_t2;
 typedef sinks::synchronous_sink<backend_t2> sync_sink_t2;
 
@@ -63,7 +63,7 @@ void Log::init()
             << "] " << expr::smessage
             );
 
-    // 打印到终端
+    // print to console
     if (_log2Console) {
         auto pConsoleBackend = boost::make_shared<backend_t2>();
         pConsoleBackend->add_stream(boost::shared_ptr<std::ostream>(&std::cout, boost::null_deleter()));
@@ -92,8 +92,8 @@ void Log::addAsyncSink()
 
     boost::filesystem::path _path(_filename);
     sink->locked_backend()->set_file_collector(sinks::file::make_collector(
-        keywords::target = _path.parent_path().string(),           // 日志备份目标文件夹
-        keywords::max_size = _fileSize * _fileCount * 1024 * 1024  // 所有日志加起来的最大大小,
+        keywords::target = _path.parent_path().string(),           // rotate file folder
+        keywords::max_size = _fileSize * _fileCount * 1024 * 1024  // total log file size
     ));
 
     sink->locked_backend()->set_file_name_pattern(_path.string());
@@ -106,7 +106,6 @@ void Log::addAsyncSink()
     logging::core::get()->add_sink(sink);
 }
 
-
 void Log::addSyncSink()
 {
     boost::shared_ptr< sync_sink_t > sink(new sync_sink_t(
@@ -116,8 +115,8 @@ void Log::addSyncSink()
 
     boost::filesystem::path _path(_filename);
     sink->locked_backend()->set_file_collector(sinks::file::make_collector(
-        keywords::target = _path.parent_path().string(),           // 日志备份目标文件夹
-        keywords::max_size = _fileSize * _fileCount * 1024 * 1024  // 所有日志加起来的最大大小,
+        keywords::target = _path.parent_path().string(),           // rotate file folder
+        keywords::max_size = _fileSize * _fileCount * 1024 * 1024  // total log file size
     ));
 
     sink->locked_backend()->set_file_name_pattern(_path.string());
