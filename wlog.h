@@ -64,7 +64,7 @@ public:
     // send to console, default: true
     void setPrintToConsole(bool);
 
-    // write message to file
+    // force to write message to file, for async mode
     void flush(); 
 
 private:
