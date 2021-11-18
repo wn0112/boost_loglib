@@ -70,7 +70,7 @@ void WLogger::trace(const char* fmt, ...)
     char buff[WLogger::BUFFSIZE];
     va_list ap;
     va_start(ap, fmt); 
-    vsprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
+    vsnprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
     va_end(ap);
     __logger->write(buff, trvl::severity_level::trace);
 }
@@ -83,7 +83,7 @@ void WLogger::info(const char* fmt, ...)
     char buff[WLogger::BUFFSIZE];
     va_list ap;
     va_start(ap, fmt);
-    vsprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
+    vsnprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
     va_end(ap);
     __logger->write(buff, trvl::severity_level::info);
 }
@@ -96,7 +96,7 @@ void WLogger::debug(const char* fmt, ...)
     char buff[WLogger::BUFFSIZE];
     va_list ap;
     va_start(ap, fmt);
-    vsprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
+    vsnprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
     va_end(ap);
     __logger->write(buff, trvl::severity_level::debug);
 }
@@ -109,7 +109,7 @@ void WLogger::warning(const char* fmt, ...)
     char buff[WLogger::BUFFSIZE];
     va_list ap;
     va_start(ap, fmt);
-    vsprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
+    vsnprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
     va_end(ap);
     __logger->write(buff, trvl::severity_level::warning);
 }
@@ -122,7 +122,7 @@ void WLogger::error(const char* fmt, ...)
     char buff[WLogger::BUFFSIZE];
     va_list ap;
     va_start(ap, fmt);
-    vsprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
+    vsnprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
     va_end(ap);
     __logger->write(buff, trvl::severity_level::error);
 }
@@ -135,7 +135,7 @@ void WLogger::fatal(const char* fmt, ...)
     char buff[WLogger::BUFFSIZE];
     va_list ap;
     va_start(ap, fmt);
-    vsprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
+    vsnprintf_s(buff, WLogger::BUFFSIZE, fmt, ap);
     va_end(ap);
     __logger->write(buff, trvl::severity_level::fatal);
 }
